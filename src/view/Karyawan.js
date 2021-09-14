@@ -17,7 +17,7 @@ const Content = () => {
     }, [])
 
     let getData = () => {
-        Axios.get('http://localhost:5000/get_karyawan')
+        Axios.get('http://localhost:5000/api/karyawan/get_karyawan')
             .then(function (response) {
                 // handle success
                 setDataKaryawan(response.data)
@@ -30,7 +30,7 @@ const Content = () => {
 
     let submitHandler = () => {
         if (action == 'add') {
-            Axios.post('http://localhost:5000/add_karyawan', form)
+            Axios.post('http://localhost:5000/api/karyawan/add_karyawan', form)
                 .then(function (response) {
                     getData()
                 })
@@ -38,9 +38,10 @@ const Content = () => {
                     console.log(error);
                 });
         } else if (action == 'update') {
-            Axios.post('http://localhost:5000/update_karyawan', form)
+            Axios.post('http://localhost:5000/api/karyawan/update_karyawan', form)
                 .then(function (response) {
                     getData()
+                    clearFormHandler()
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -49,7 +50,7 @@ const Content = () => {
     }
 
     let deleteHandler = (id) => {
-        Axios.post('http://localhost:5000/delete_karyawan/' + id)
+        Axios.post('http://localhost:5000/api/karyawan/delete_karyawan/' + id)
             .then(function (response) {
                 getData()
             })
@@ -62,6 +63,15 @@ const Content = () => {
         setAction('update')
         setForm(item)
         // console.log(item)
+    }
+
+    let clearFormHandler = () => {
+        setForm({
+            'id_karyawan': '',
+            'nama_karyawan': '',
+            'phone_karyawan': '',
+            'email_karyawan': '',
+        })
     }
 
     console.log(form)
@@ -122,7 +132,7 @@ const Content = () => {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalCenterTitle">{action}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" onClick={() => clearFormHandler()} class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>

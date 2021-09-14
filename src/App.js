@@ -1,24 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+
 import Sidebar from './components/Sidebar'
 import Navbar from './components/Navbar'
-import Content from './components/Content'
 import Footer from './components/Footer'
+
+import Karyawan from './view/Karyawan'
+import Home from './view/Home'
+import Email from './view/Email'
+
+// import Message from "./Views/Message"
 
 function App() {
   return (
-    <>
+    <Router>
       <div id="wrapper">
         <Sidebar />
         <div id="content-wrapper" class="d-flex flex-column">
           <div id="content">
             <Navbar />
-            <Content />
+            <Switch>
+              <Route path="/email">
+                <Email />
+              </Route>
+              <Route path="/karyawan">
+                <Karyawan />
+              </Route>
+              <Route path="/">
+                <Home />
+              </Route>
+            </Switch>
           </div>
           <Footer />
         </div>
       </div>
-    </>
+    </Router>
   );
 }
 
