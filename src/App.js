@@ -12,8 +12,6 @@ import Karyawan from './view/Karyawan'
 import Home from './view/Home'
 import Email from './view/Email'
 
-// import Message from "./Views/Message"
-
 function App() {
   return (
     <Router>
